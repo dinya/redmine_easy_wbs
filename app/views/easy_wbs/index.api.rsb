@@ -1,0 +1,69 @@
+api.easy_wbs_data do
+  api.array :projects do
+    @projects.each do |project|
+      api.project do
+        api.id project.id
+        api.name project.name
+        api.parent_id project.parent_id
+      end
+    end
+  end
+  api.array :issues do
+    @issues.each do |issue|
+      api.issue do
+        api.id issue.id
+        api.subject issue.subject
+        api.parent_issue_id issue.parent_issue_id
+        api.project_id issue.project_id
+        api.assigned_to_id issue.assigned_to_id
+        api.tracker_id issue.tracker_id
+        api.status_id issue.status_id
+        api.priority_id issue.priority_id
+        api.done_ratio issue.done_ratio
+        api.fixed_version_id issue.fixed_version_id
+      end
+    end
+  end
+  api.array :trackers do
+    @trackers.each do |tracker|
+      api.tracker do
+        api.id tracker.id
+        api.name tracker.name
+        api.subtaskable tracker.core_fields.include?('parent_issue_id')
+      end
+    end
+  end
+  api.array :users do
+    @users.each do |user|
+      api.user do
+        api.id user.id
+        api.name user.name
+        api.avatar avatar(user, :size => 64, :no_link => true)
+      end
+    end
+  end
+  api.array :priorities do
+    IssuePriority.active.sorted.reverse.each do |priority|
+      api.priority do
+        api.id priority.id
+        api.name priority.name
+      end
+    end
+  end
+  api.array :statuses do
+    IssueStatus.sorted.each do |status|
+      api.status do
+        api.id status.id
+        api.name status.name
+      end
+    end
+  end
+  api.array :versions do
+    @versions.each do |version|
+      api.version do
+        api.id version.id
+        api.name version.name
+      end
+    end
+  end
+end

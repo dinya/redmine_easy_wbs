@@ -1,0 +1,16 @@
+.wbs-legend{
+  &-color-box{
+    @include wbs-scheme($color-border-minor);
+    &:before{
+      content: 'B';
+      font-weight: bold;
+      display: block;
+      text-align: center;
+    }
+  }
+  &-item{
+    &-cont{
+      margin-top: 0.5*$gap;
+    }
+  }
+}

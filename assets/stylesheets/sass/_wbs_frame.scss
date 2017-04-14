@@ -1,0 +1,52 @@
+#easy_wbs {
+  #container{
+    border: none;
+    //@extend %well;
+    background-color: mix($color-background,$color-foreground);
+    margin: 0;
+    padding: 0;
+    @extend %pattern-grid-background !optional;
+  }
+  #wbs{
+    &_cont{
+      margin: 0 (-$box-padding);
+      width: auto;
+    }
+    &_legend{
+      margin-top: $gap;
+      margin-left: -1px;
+      border-color: $color-border;
+      padding: $gap $box-padding;
+    }
+    &_menu{
+      border-bottom: 1px solid $color-border;
+      padding: $gap 0;
+      width: auto;
+      .menu-item{
+        &:first-child{
+          margin-left: $box-padding;
+        }
+        &:last-child{
+          margin-right: $box-padding;
+        }
+      }
+    }
+  }
+  &.redmine {
+    #wbs {
+      &_cont {
+        margin: 0 -10px -10px -10px;
+      }
+      &_menu {
+        padding: 5px 1px 0 1px;
+      }
+      &_legend {
+        margin-top: 1px;
+      }
+    }
+    .wbs-legend-color-box {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+}

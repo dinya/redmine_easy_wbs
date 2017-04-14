@@ -1,0 +1,80 @@
+.mapjs{
+  &-node{
+    border: 1px solid transparent;// !important;
+    border-bottom-width: 3px;
+    @include wbs-scheme($color-border-minor);
+    @include box-shadow(0 0 3px 0px rgba($black, .25));
+    //@extend %box-shadow-none;
+    padding: 0.75*$gap 1.5*$gap;
+    &.collapsed {
+      @include box-shadow(( 1px 2px 0 lighten($color-border, 100%), 2px 4px 0 darken($color-border, 10%), 3px 6px 0 lighten($color-border, 100%), 4px 8px 0 darken($color-border, 10%),4px 8px 3px 0 rgba($black, .25)));
+    }
+    //&.collapsed.selected {
+    //  @include box-shadow(( 1px 2px 0 lighten($color-border, 100%), 2px 4px 0 darken($color-border, 10%), 3px 6px 0 lighten($color-border, 100%), 4px 8px 0 darken($color-border, 10%),4px 8px 3px 1px rgba($black, .5)));
+    //}
+    &.selected{
+      @include box-shadow(0 1px 3px 1px rgba($black, .5));
+    }
+    &.activated{
+      border: 1px solid transparent;
+      border-bottom-width: 3px;
+    }
+    &.droppable{
+      border-color: $color-important;
+    }
+  }
+  &-collapsor{
+    //transform-origin: 30% 30%;
+    @include scale(0.5);
+    @extend %border-radius-infinite;
+    position: absolute;
+    left: auto;
+    top: 50%;
+    right: -$gap - 4;
+    margin-top: -$gap;
+    width: 2*$gap;
+    height: 2*$gap;
+    color: $button-negative-color;
+    background-color: $button-negative-background;
+    border-color: darken($button-negative-background,10%);
+    line-height: 0.95;
+    font-size: 18px;
+    text-align: center;
+    border: 2px solid transparent;
+    &.button-collapsed {
+      color: $button-positive-color;
+      background-color: $button-positive-background;
+      border-color: darken($button-positive-background,10%);
+      line-height: 1.2;
+    }
+    .mapjs-node:hover & {
+      @include scale(1);
+      border-width: 2px;
+      margin-top: -$gap - 2;
+    }
+    .wbs-node-left & {
+      right: auto;
+      left: -$gap;
+    }
+  }
+}
+.wbs{
+  &-node{
+    &-avatar{
+      position: absolute;
+      top: 50%;
+      margin-top: -11px;
+      .wbs-node-left & {
+        left: auto;
+        right: -31px;
+      }
+    }
+  }
+}
+.wbs-scheme-project{
+  @include wbs-scheme(lighten($color-important,20%));
+  @include skew(-6deg, 0);
+  @include border-radius(3px);
+  font-style: normal;
+}
+

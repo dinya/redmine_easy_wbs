@@ -1,0 +1,291 @@
+  <div id="easy_wbs" class="<%= defined?(EasyExtensions) ? 'easy' : 'redmine' %>
+    wbs clear">
+
+    <%= render @query, :easy_query_name => l(:heading_easy_wbs_issues), :wrapper_class => '', :options => { :show_custom_formatting => false, :show_free_search => false } %>
+    <div id="wbs_cont" class="clear">
+      <div id="wbs_menu">
+        <div class="menu-item legend-toggler">
+          <a href="javascript:void(0)" class="button button-2">Legend</a>
+        </div>
+        <div id='wbs_legend' class="wbs-legend"></div>
+        <div class="menu-item resetView">
+          <a href="javascript:void(0)" class="button button-2 icon icon-magnifier">&#8203;</a>
+        </div>
+        <div class="menu-item scaleUp">
+          <a href="javascript:void(0)" class="button button-2 icon icon-zoom-in">&#8203;</a>
+        </div>
+        <div class="menu-item scaleDown">
+          <a href="javascript:void(0)" class="button button-2 icon icon-zoom-out">&#8203;</a>
+        </div>
+        <div class="menu-item">
+          <label for="wbs_color_select" style="display:inline-block"><%= l(:label_color_by, :scope => [:easy_wbs]) %>:</label>
+          <select id="wbs_color_select" style="width:150px">
+            <option value="tracker" selected><%= l(:field_tracker) %></option>
+            <option value="progress"><%= l(:field_done_ratio) %></option>
+            <option value="priority"><%= l(:field_priority) %></option>
+            <option value="status"><%= l(:field_status) %></option>
+            <option value="assignee"><%= l(:field_assigned_to) %></option>
+            <option value="milestone"><%= l(:field_version) %></option>
+          </select>
+        </div>
+        <!--<div class="menu-item addSubIdea">
+          <a href="javascript:void(0)" class="button button-2 icon icon-add"><%= l(:button_add_child, :scope => [:easy_wbs]) %></a>
+        </div>
+        <div class="menu-item editNode">
+          <a href="javascript:void(0)" class="button button-2 icon icon-edit"><%= l(:button_rename) %></a>
+        </div>
+        <div class="menu-item removeSubIdea">
+          <a href="javascript:void(0)" class="button button-2 icon icon-del"><%= l(:button_remove_node, :scope => [:easy_wbs]) %></a>
+        </div>
+        <div class="menu-item toggleCollapse open">
+          <a href="javascript:void(0)" class="button button-2 icon icon-folder"><%= l(:button_expand_collapse, :scope => [:easy_wbs]) %></a>
+        </div>-->
+        <!--<input type="button" onclick="mapModel.setInputEnabled(mapModel.getInputEnabled);$(this).val(mapModel.getInputEnabled?'disable':'enable')" value="disable" />-->
+        <div class="right-menu">
+          <div class="menu-item undo">
+            <a href="javascript:void(0)" class="button button-2 icon icon-cancel"><%= l(:button_undo, :scope => [:easy_wbs]) %></a>
+          </div>
+          <div class="menu-item redo">
+            <a href="javascript:void(0)" class="button button-2 icon icon-move"><%= l(:button_redo, :scope => [:easy_wbs]) %></a>
+          </div>
+          <!--<input type="button" data-mm-action="export-image" value="Export To Image"/>-->
+          <!--<div class="menu-item cut">
+            <a href="javascript:void(0)" class="button button-2"><%= l(:button_cut, :scope => [:easy_wbs]) %></a>
+          </div>
+          <div class="menu-item copy">
+            <a href="javascript:void(0)" class="button button-2 icon icon-copy"><%= l(:button_copy) %></a>
+          </div>
+          <div class="menu-item paste">
+            <a href="javascript:void(0)" class="button button-2"><%= l(:button_paste, :scope => [:easy_wbs]) %></a>
+          </div>-->
+          <div class="menu-item toggleOneSide">
+            <a href="javascript:void(0)" class="button button-2"><%= l(:button_one_side, :scope => [:easy_wbs]) %></a>
+          </div>
+          <!--<input type="button" class="openAttachment" value="open attachment" />-->
+          <!--<input type="button" class="toggleAddLinkMode" value="add link" />-->
+          <div class="menu-item save">
+            <a href="javascript:void(0)" class="button button-1 button-positive"><%= l(:button_save) %></a>
+          </div>
+        </div>
+      </div>
+      <div id="container" style="min-height: 600px;width: 100%;"></div>
+      <%= render(:partial => 'hotkeys') %>
+    </div>
+  </div>
+      <% heads_for_wiki_formatter %>
+      <%= content_for :header_tags do %>
+    <script type="text/javascript">
+      window.ysy = window.ysy || {};
+      ysy.settings = {
+        easyRedmine: <%= defined?(EasyExtensions)? true : false %>,
+        projectID: <%= @project.id %>,
+        apiKey: "<%= User.current.api_key %>",
+        noSave: <%= params[:nosave] ? true : false %>,
+        paths:{
+          issuePage: "<%= issue_path(':issueID') %>",
+          projectPage: "<%= project_path(':projectID') %>",
+          data:"<%= project_easy_wbs_index_path(@project, :format => 'json', :key => User.current.api_key) %>",
+          issuePOST: "<%= issues_path(:format => 'json', :key => User.current.api_key) %>",
+          issuePUT: "<%= issue_path(':issueID', :format => 'json', :key => User.current.api_key) %>",
+          issueDELETE: "<%= issue_path(':issueID', :format => 'json', :key => User.current.api_key) %>",
+          projectPUT: "<%= project_path(':projectID', :format => 'json', :key => User.current.api_key) %>",
+          newIssuePath: '<%= new_issue_path(:key => User.current.api_key) %>',
+          editIssuePath: '<%= edit_issue_path(':issueID',:key => User.current.api_key) %>'
+        },
+        labels:{
+          free: {
+            headerNotAvailable: '<%= l(:header_not_available, :scope => [:easy_wbs, :free]) %>',
+            buttonUpgrade: '<%= l(:button_upgrade, :scope => [:easy_wbs, :free]) %>'
+          },
+          errors:{
+            not_subtaskable: '<%= l(:not_subtaskable, :scope => [:easy_wbs, :errors]) %>'
+          },
+          types:{
+            project:"<%= l(:field_project) %>",
+            issue:"<%= l(:field_issue) %>"
+          },
+          gateway:{
+            multiSuccess:"<%= l(:info_all_saved, :scope => [:easy_wbs]) %>",
+            multiFail:"<%= l(:info_any_failed, :scope => [:easy_wbs]) %>",
+            PUTfail:"<%= l(:error_update, :scope => [:easy_wbs]) %>",
+            POSTfail:"<%= l(:error_create, :scope => [:easy_wbs]) %>",
+            DELETEfail:"<%= l(:error_delete, :scope => [:easy_wbs]) %>",
+            response_403: "<%= l(:info_no_permission, :scope => [:easy_wbs]) %>",
+            notProperlySaved: "<%= l(:warning_not_saved, :scope => [:easy_wbs]) %>"
+          },
+          legend:{
+            tracker_plural: "<%= l(:label_tracker_plural) %>",
+            priority_plural: "<%= l(:enumeration_issue_priorities) %>",
+            status_plural: "<%= l(:label_issue_status_plural) %>",
+            progress_plural: "<%= l(:field_done_ratio) %>",
+            assignee_plural: "<%= l(:label_user_plural) %>",
+            milestone_plural: "<%= l(:label_version_plural) %>"
+          },
+          buttons:{
+            close: "<%= l(:button_close) %>",
+            button_yes: '<%= l(:general_text_Yes) %>',
+            button_no: '<%= l(:general_text_No) %>'
+          },
+          modals: {
+            new_issue: '<%= l(:label_issue_new) %>',
+            edit_issue: '<%= l(:edit_issue, :scope => [:easy_wbs]) %>'
+          },
+          context: {
+            expand: '<%= l(:button_expand, :scope => [:easy_wbs]) %>',
+            collapse: '<%= l(:button_collapse, :scope => [:easy_wbs]) %>',
+            goto: '<%= l(:label_go_to, :scope => [:easy_wbs]) %>',
+            rename: '<%= l(:button_rename) %>',
+            editData: '<%= l(:button_edit_data, :scope => [:easy_wbs]) %>',
+            add: '<%= l(:button_add) %>',
+            addChild: '<%= l(:button_add_child, :scope => [:easy_wbs]) %>',
+            addSibling: '<%= l(:button_add_sibling, :scope => [:easy_wbs]) %>',
+            addParent: '<%= l(:button_add_parent, :scope => [:easy_wbs]) %>',
+            remove: '<%= l(:button_delete) %>',
+            tracker: '<%= l(:field_tracker) %>',
+            priority: '<%= l(:field_priority) %>',
+            status: '<%= l(:field_status) %>',
+            assignee: '<%= l(:field_assigned_to) %>',
+            doneRatio: '<%= l(:field_done_ratio) %>',
+            changeProperties: '<%= l(:label_change_properties) %>'
+          }
+        },
+        templates:{
+          context_menu:"\
+          <ul>\
+          <li><a href='javascript:void(0)' class='icon-folder toggleCollapse'\
+              >{{#isCollapsed}}<%= l(:button_expand, :scope => [:easy_wbs]) %>{{/isCollapsed}}{{^isCollapsed}}<%= l(:button_collapse, :scope => [:easy_wbs]) %>{{/isCollapsed}}</a></li>\
+          <li><a href='javascript:void(0)' class='icon-move followURL'>Go to {{#isProject}}<%= l(:field_project) %>{{/isProject}}{{^isProject}}<%= l(:field_issue) %>{{/isProject}}</a></li>\
+          <li><a href='javascript:void(0)' class='icon-edit editNode'><%= l(:button_rename) %></a></li>\
+          {{^isProject}}\
+          <li><a href='javascript:void(0)' class='icon-edit editNodeData'><%= l(:button_edit_data, :scope => [:easy_wbs]) %></a></li>\
+          {{/isProject}}\
+          <li><a href='javascript:void(0)' class='icon-add addSubIdea'><%= l(:button_add_child, :scope => [:easy_wbs]) %></a></li>\
+          <li><a href='javascript:void(0)' class='icon-add addSiblingIdea'><%= l(:button_add_sibling, :scope => [:easy_wbs]) %></a></li>\
+          <li><a href='javascript:void(0)' class='icon-add insertIntermediate'><%= l(:button_add_parent, :scope => [:easy_wbs]) %></a></li>\
+          <li><a href='javascript:void(0)' class='icon-del removeSubIdea'><%= l(:button_delete) %></a></li>\
+          </ul>",
+          upgrade: '\
+            <h3 class="title"><%= l(:header_not_available, :scope => [:easy_wbs, :free]) %></h3>\
+            <p>\
+              {{#filtering}}\
+                <%= l(:feature_filtering, :scope => [:easy_wbs, :free]) %>\
+              {{/filtering}}\
+              {{#coloring}}\
+                <%= l(:feature_coloring, :scope => [:easy_wbs, :free]) %>\
+              {{/coloring}}\
+              {{#context_menu}}\
+                <%= l(:feature_context_menu, :scope => [:easy_wbs, :free]) %>\
+              {{/context_menu}}\
+              <%= l(:text_not_available, :scope => [:easy_wbs, :free]) %></p>\
+            <a id="upgrade_link" style="display:none" href="<%= l(:button_upgrade_href, :scope => [:easy_wbs, :free]) %>">link</a>\
+          ',
+          reloadModal: '\
+            <h3 class="title"><%= l(:title, :scope => [:easy_wbs, :reload_modal]) %></h3>\
+            <h4><%= l(:label_errors, :scope => [:easy_wbs, :reload_modal]) %>:</h4>\
+            <ul class="wbs-reload-modal-errors">\
+              {{#errors}}\
+                <li class="wbs-reload-modal-error">{{.}}</li>\
+              {{/errors}}\
+            </ul>\
+            <p><%= l(:text_reload_appeal, :scope => [:easy_wbs, :reload_modal]) %></p>\
+          ',
+          reloadErrors: '\
+            {{#.}}\
+              <li>\
+                {{#isProject}}<%= l(:label_project)%>{{/isProject}}{{^isProject}}<%= l(:label_issue)%>{{/isProject}} \
+                {{#changed}}\
+                    \"{{name}}\" <%= l(:message_changed, :scope => [:easy_wbs, :last_state_modal]) %>\
+                {{/changed}}\
+                {{#moved}}\
+                    \"{{name}}\" <%= l(:message_moved, :scope => [:easy_wbs, :last_state_modal]) %>\
+                {{/moved}}\
+                {{#present}}\
+                    \"{{name}}\" <%= l(:message_present, :scope => [:easy_wbs, :last_state_modal]) %>\
+                {{/present}}\
+                {{#missing}}\
+                    \"{{name}}\" <%= l(:message_missing, :scope => [:easy_wbs, :last_state_modal]) %>\
+                {{/missing}}\
+              </li>\
+            {{/.}}\
+          ',
+          lastStateModal: '\
+            <h3 class="title"><%= l(:title, :scope => [:easy_wbs, :last_state_modal]) %></h3>\
+            <h4><%= l(:label_differencies, :scope => [:easy_wbs, :last_state_modal]) %>:</h4>\
+            <ul class="wbs-last-modal-diffs">\
+              {{{differences}}}\
+            </ul>\
+            <p><%= l(:text_reload_appeal, :scope => [:easy_wbs, :last_state_modal]) %></p>\
+          ',
+          storedModal: '\
+            <h3 class="title"><%= l(:title, :scope => [:easy_wbs, :stored_modal]) %></h3>\
+            <p><%= l(:text_load_appeal, :scope => [:easy_wbs, :stored_modal]) %></p>\
+          '
+        }
+      };
+      $(document).ready(function () {
+        $("p.nodata").remove()
+      })
+    </script>
+    <script type="text/javascript">
+        window.ysy = window.ysy || {};
+        ysy.view = ysy.view || {};
+        ysy.view.templates = $.extend(ysy.view.templates,{
+        });
+    </script>
+      <% include_calendar_headers_tags %>
+    <% if defined?(EasyExtensions) %>
+      <%= stylesheet_link_tag(:easy_wbs, :media => 'all') %>
+    <% else %>
+      <%= stylesheet_link_tag(:mindmup, :plugin => 'easy_wbs', :media => 'all') %>
+      <%= stylesheet_link_tag(:context_menu, :media => 'all') %>
+      <%= stylesheet_link_tag(:easy_wbs, :plugin => 'easy_wbs', :media => 'all') %>
+      <%= stylesheet_link_tag(:easy_wbs_sass, :plugin => 'easy_wbs', :media => 'all') %>
+    <% end %>
+      <%= javascript_include_tag('external', :plugin => 'easy_wbs') %>
+    <% if false && defined?(EasyExtensions) %>
+      <%= javascript_include_tag('easy_wbs', :plugin => 'easy_wbs') %>
+    <% else %>
+      <%= begin javascript_include_tag(
+        'mindmup/mapjs',
+        'mindmup/clipboard',
+        'mindmup/content',
+        'mindmup/dom-map-view',
+        'mindmup/dom-map-widget',
+        'mindmup/hammer-draggable',
+        'mindmup/image-drop-widget',
+        'mindmup/layout',
+        #'mindmup/link-edit-widget',
+        'mindmup/map-model',
+        'mindmup/map-toolbar-widget',
+        'mindmup/observable',
+        'mindmup/url-helper', :plugin => 'easy_wbs')
+      end %>
+      <%#= javascript_include_tag('mindmup-mapjs', :plugin => 'easy_wbs') %>
+      <%#= javascript_include_tag('data/roy-map_short', :plugin => 'easy_wbs') %>
+      <%#= javascript_include_tag('data/roy-map', :plugin => 'easy_wbs') %>
+      <%#= javascript_include_tag('data/mine', :plugin => 'easy_wbs') %>
+      <%= begin javascript_include_tag(
+        :libs,
+        :mapjs_init,
+        :data,
+        :loader,
+        :saver,
+        :filter,
+        :mapjs_modif,
+        :mapjs_wraper,
+        :styles,
+        :logger,
+        :gateway,
+        :modals,
+        :validator,
+        :utils,
+        :storage,
+        :legends,
+        :redrawer,
+        :toolbar,
+        :wbs_context_menu,
+        :main, :plugin => 'easy_wbs')
+      end %>
+    <% end %>
+      <% end %>
+

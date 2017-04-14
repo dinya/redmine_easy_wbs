@@ -1,0 +1,15 @@
+@mixin wbs-scheme($color){
+  //&:before{
+  //  content: '#{lightness($color) > 50%}';
+  //}
+  background-color: $color;
+  color: background-to-color($color, 50%, 75%);
+  border-color: darken($color, 15%);
+
+  &.activated, &.selected, &.droppable {
+    background-color: darken($color, 15%);
+  }
+  &.collapsed, &.collapsed.selected {
+    @include box-shadow((0 2px 0 lighten($color, 100%), 0 4px 0 darken($color, 10%), 0 6px 0 lighten($color, 100%), 0 8px 0 darken($color, 10%), 0 8px 3px 0 rgba($black, .25)));
+  }
+}

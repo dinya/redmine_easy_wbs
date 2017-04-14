@@ -1,0 +1,14 @@
+.mapjs{
+  &-connector{
+    stroke: darken($color-border,5%);
+    //stroke-width: 2px;
+    //stroke-dasharray: 2, 2;
+  }
+  &-draw{
+    &-container{
+      &[data-mapjs-role=connector]{
+
+      }
+    }
+  }
+}

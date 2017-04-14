@@ -1,0 +1,12 @@
+.scheme{
+  @each $scheme, $map in $wbs-schemes {
+    &-by-#{$scheme} &-#{$scheme}{
+      @for $i from 1 through length($map) {
+        $color: nth($map, $i);
+        &-#{$i} {
+          @include wbs-scheme($color);
+        }
+      }
+    }
+  }
+}

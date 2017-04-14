@@ -1,0 +1,38 @@
+$wbs-schemes: (
+        priority: (
+                rgba($color-negative, 1),
+                lighten($color-negative, 50),
+                lighten($color-positive, 25%),
+                lighten($color-text, 100%),
+                lighten($color-main, 50%)
+        ),
+        status: (lighten(#ff6969,20%)),
+        tracker: (lighten($color-main, 50%), lighten(#ff6969, 20%)),
+        assignee: (lighten(#ff6969,20%)),
+        milestone: (lighten(#ff6969,20%)),
+        progress: (
+                #ff6969,
+                #ff8769,
+                #ffa569,
+                #ffc369,
+                #ffe169,
+                #ffff69,
+                #e1ff69,
+                #c3ff69,
+                #a5ff69,
+                #87ff69,
+                #69ff69)
+) !default;
+$scheme-iterations: 12;
+@each $scheme, $map in $wbs-schemes {
+  @for $i from 1 to $scheme-iterations {
+   $map: append($map, adjust_hue(nth($map, length($map)),(360/$scheme-iterations)),comma);
+  }
+  @for $i from 1 through $scheme-iterations {
+    $map: append($map, lighten(nth($map, length($map)-$scheme-iterations + 1), 20%), comma);
+  }
+  @for $i from 1 through $scheme-iterations {
+    $map: append($map, darken(nth($map, length($map)-$scheme-iterations*2 + 1), 50%), comma);
+  }
+  $wbs-schemes: map-merge($wbs-schemes, ($scheme: $map));
+}
