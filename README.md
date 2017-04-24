@@ -1,6 +1,5 @@
 # Redmine Easy WBS Plugin
-* Version : 1.02
-* Compatibility : Redmine 3.x (tested with Redmine 3.3.2)
+* Version: 1.02
 
 Git mirror of the free version of Easy WBS Plugin, provided by EasyRedmine. This one is 100% compatible with Redmine, and Easy Redmine of course.
 
@@ -18,6 +17,11 @@ Work Breakdown Struture Plugin visualizes projects, issues and sub-issues in min
 * Compatible with Redmine 3.0+ 
 ```
 More informations : https://www.easyredmine.com/redmine-wbs-plugin
+
+## Requirements
+* Redmine version: 3.2+ (tested with Redmine 3.3.2)
+* Ruby version: 2.1+ (recommended 2.3.)
+* Database type: MySQL (recommended), PostgreSQL
 
 ## Install
 
