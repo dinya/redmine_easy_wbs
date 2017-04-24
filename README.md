@@ -29,7 +29,7 @@ More informations : https://www.easyredmine.com/redmine-wbs-plugin
 * Run the following commands :
 ```
 gem install redmine-installer
-git clone https://github.com/StephDiRaimondo/redmine_easy_wbs.git ./plugins/easy_wbs
+git clone https://github.com/EconomatDesArmees/redmine_easy_wbs.git ./plugins/easy_wbs
 bundle install
 rake db:migrate RAILS_ENV=production
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
