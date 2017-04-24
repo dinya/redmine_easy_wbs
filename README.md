@@ -8,7 +8,6 @@ Git mirror of the free version of Easy WBS Plugin, provided by EasyRedmine. This
 ```
 Work Breakdown Struture Plugin visualizes projects, issues and sub-issues in mind map like view - showing decomposition of the work to be executed by the project team. It further enables you to manage projects and issues using easy drag & drop while having clearest possible visualization of whole project. 
 
-###Features :
 * Mind map like visualization of the projects, issues, and sub-issues
 * Drag & Drop sorting of issues and projects
 * Creation of issues from the mind map
